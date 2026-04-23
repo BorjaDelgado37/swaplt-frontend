@@ -1,0 +1,149 @@
+import { Component, OnInit } from '@angular/core';
+import { FavoritosService } from '../../services/favoritos.service';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Favorito } from '../../models/favorito.model';
+import { VehiculoImagenService } from '../../services/vehiculos/vehiculo-imagen.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { catchError, of } from 'rxjs';
+
+@Component({
+  selector: 'app-favoritos',
+  templateUrl: './favoritos.component.html',
+  styleUrls: ['./favoritos.component.css']
+})
+export class FavoritosComponent implements OnInit {
+  favoritos: Favorito[] = [];
+  loading = false;
+  error: string | null = null;
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalItems = 0;
+  animatingFavorites: Set<number> = new Set();
+
+  constructor(
+    private favoritosService: FavoritosService,
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService,
+    private vehiculoImagenService: VehiculoImagenService,
+    private sanitizer: DomSanitizer
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      this.toastr.warning('Por favor inicia sesión para ver tus favoritos');
+      return;
+    }
+    this.loadFavoritos();
+    
+    // Suscribirse a cambios en los favoritos
+    this.favoritosService.getFavoritosState().subscribe(favoritos => {
+      this.favoritos = favoritos;
+      this.totalItems = this.favoritos.length;
+    });
+  }
+
+  get paginatedFavoritos(): Favorito[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.favoritos.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  loadFavoritos(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.favoritosService.getFavoritos().subscribe({
+      next: (response) => {
+        this.favoritos = response;
+        this.totalItems = this.favoritos.length;
+        this.loading = false;
+      },
+      error: (error) => {
+        if (error.status === 404) {
+          // Si no hay favoritos, mostramos la lista vacía
+          this.favoritos = [];
+          this.totalItems = 0;
+          this.loading = false;
+        } else {
+          this.error = 'Error al cargar los favoritos. Por favor, intente nuevamente.';
+          this.loading = false;
+          console.error('Error loading favorites:', error);
+          if (error.status === 401) {
+            this.authService.logout();
+            this.router.navigate(['/login']);
+            this.toastr.warning('Tu sesión ha expirado. Por favor inicia sesión nuevamente.');
+          }
+        }
+      }
+    });
+  }
+
+  getVehiculoImagen(vehiculo: any): SafeUrl | string {
+    if (vehiculo.imagenes && vehiculo.imagenes.length > 0) {
+      return this.vehiculoImagenService.obtenerUrlImagen(vehiculo.imagenes[0].id);
+    }
+    return '/assets/imgs/no-imagen.jpeg';
+  }
+
+  removeFavorito(favoritoId: number): void {
+    this.animatingFavorites.add(favoritoId);
+    this.favoritosService.removeFavoritoById(favoritoId).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.animatingFavorites.delete(favoritoId);
+          this.toastr.success('Vehículo eliminado de favoritos');
+        }, 2000);
+      },
+      error: (error) => {
+        this.animatingFavorites.delete(favoritoId);
+        if (error.status === 404) {
+          // Si el favorito ya no existe, lo eliminamos de la lista local
+          this.favoritos = this.favoritos.filter(f => f.id !== favoritoId);
+          this.totalItems = this.favoritos.length;
+          this.toastr.success('Vehículo eliminado de favoritos');
+        } else {
+          this.toastr.error('Error al eliminar de favoritos');
+          console.error('Error removing favorite:', error);
+        }
+      }
+    });
+  }
+
+  isAnimating(favoritoId: number): boolean {
+    return this.animatingFavorites.has(favoritoId);
+  }
+
+  goToVehicleDetail(vehiculoId: number): void {
+    this.router.navigate(['/vehiculo', vehiculoId]);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+  }
+
+  contactar(favorito: Favorito): void {
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      this.toastr.warning('Por favor inicia sesión para contactar al vendedor');
+      return;
+    }
+
+    if (!favorito || !favorito.vehiculo.user_id) {
+      this.toastr.error('No se pudo obtener la información del vendedor');
+      return;
+    }
+
+    console.log('Redirigiendo al chat con el usuario:', favorito.vehiculo.user_id);
+    this.router.navigate(['/mensajes', favorito.vehiculo.user_id]);
+    this.toastr.success('Redirigiendo al chat con el vendedor');
+  }
+
+  verDetalles(id: number): void {
+    if (id) {
+      window.open(`/vehiculo/${id}`, '_blank');
+    }
+  }
+} 

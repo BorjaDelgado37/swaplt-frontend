@@ -1,0 +1,117 @@
+<div class="landing-container">
+  
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-content">
+      <img src="assets/imgs/logo.png" alt="Swaplt Logo" class="hero-logo" data-no-translate="true">
+      <div class="badge" data-no-translate="true"><span>Descubre</span> <span data-no-translate="true">SWAPLT</span></div>
+      <h1 class="hero-title" data-no-translate="true"><span>El intercambio de vehículos,</span> <span class="highlight">reimaginado</span></h1>
+      <p class="hero-subtitle">
+        Encuentra el coche de tus sueños, vende el tuyo o negocia un intercambio justo en un entorno seguro y de confianza.
+      </p>
+      
+      <div class="hero-buttons">
+        <button class="btn-primary" (click)="navigateToCatalog()">
+          Explorar Catálogo <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="btn-secondary" (click)="navigateToSell()">
+          Vender o Intercambiar
+        </button>
+      </div>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">+500</span>
+          <span class="stat-label">Coches disponibles</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Intercambios seguros</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Soporte y mensajería</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <h2>¿Cómo funciona?</h2>
+      <p>Tres simples pasos para renovar tu garaje de la manera más inteligente.</p>
+    </div>
+    
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">
+          <span>1</span>
+        </div>
+        <h3>Publica tu vehículo</h3>
+        <p>Sube fotos de calidad, añade los detalles técnicos y establece si quieres vender, intercambiar o ambas opciones.</p>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-icon">
+          <span>2</span>
+        </div>
+        <h3>Encuentra y Conecta</h3>
+        <p>Explora nuestro catálogo utilizando filtros avanzados y abre un chat directo y seguro con los propietarios que te interesen.</p>
+      </div>
+      
+      <div class="step-card">
+        <div class="step-icon">
+          <span>3</span>
+        </div>
+        <h3>Cierra el trato</h3>
+        <p>Negocia las condiciones a través de nuestra mensajería, utiliza nuestros enlaces de seguros de confianza y disfruta tu nuevo coche.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="features-section">
+    <div class="features-container">
+      <div class="feature-text">
+        <h2>La plataforma diseñada para los amantes del motor</h2>
+        <p>No somos solo otra web de clasificados. Swaplt está construida pensando en la comunidad automotriz, priorizando la transparencia, la comunicación directa y las oportunidades únicas de intercambio.</p>
+        
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i> Chat en tiempo real integrado.</li>
+          <li><i class="fas fa-check-circle"></i> Informes en PDF descargables de cada vehículo.</li>
+          <li><i class="fas fa-check-circle"></i> Sistema de favoritos para guardar tus candidatos.</li>
+          <li><i class="fas fa-check-circle"></i> Integración con comparadores de seguros líderes.</li>
+        </ul>
+        
+        <button class="btn-outline" (click)="navigateToCatalog()">Ver Catálogo Completo</button>
+      </div>
+      <div class="feature-image">
+        <!-- Puedes poner una imagen real de la app o un placeholder estilizado -->
+        <div class="glass-mockup">
+          <div class="mockup-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-car-card"></div>
+            <div class="mockup-car-card"></div>
+            <div class="mockup-car-card"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CALL TO ACTION FINAL -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>¿Listo para el cambio?</h2>
+      <p>Únete a nuestra comunidad hoy y descubre una nueva forma de negociar coches.</p>
+      <button class="btn-primary large" (click)="navigateToCatalog()">Empezar Ahora</button>
+    </div>
+  </section>
+
+</div>

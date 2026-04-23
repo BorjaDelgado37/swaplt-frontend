@@ -1,0 +1,742 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+/* Galería de imágenes */
+.gallery {
+  position: relative;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.carousel {
+  width: 100%;
+  height: 500px;
+}
+
+.carousel-inner {
+  height: 100%;
+}
+
+.carousel-item {
+  height: 100%;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.carousel-caption h5 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.carousel-caption p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+  opacity: 0.8;
+}
+
+.carousel-indicators {
+  margin-bottom: 1rem;
+}
+
+.carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.default-vehicle-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-background);
+}
+
+.default-vehicle-icon i {
+  font-size: 6rem;
+  color: var(--border-color);
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background-color: var(--card-background);
+  border-top: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.thumbnail {
+  width: 100px;
+  height: 70px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.thumbnail:hover {
+  transform: translateY(-2px);
+}
+
+.thumbnail.active {
+  border-color: var(--primary-color);
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+/* Información del vehículo */
+.vehicle-info {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.vehicle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.vehicle-title {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.vehicle-price {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.vehicle-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Secciones de detalles */
+.details-section {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.details-section h2 {
+  color: var(--text-color);
+  margin: 0 0 20px 0;
+  font-size: 1.5rem;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background-color: var(--card-details-background);
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.detail-item i {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+}
+
+.detail-item span {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+/* Descripción */
+.description-content {
+  padding: 20px;
+  background-color: var(--card-details-background);
+  border-radius: 8px;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Información del vendedor */
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--card-details-background);
+  border-radius: 8px;
+}
+
+.seller-avatar {
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seller-avatar i {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.seller-details {
+  flex: 1;
+}
+
+.seller-details h3 {
+  margin: 0 0 10px 0;
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+.seller-details p {
+  margin: 0 0 15px 0;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+.ver-perfil-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+  font-size: 0.9rem;
+}
+
+.ver-perfil-btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.ver-perfil-btn i {
+  font-size: 1rem;
+}
+
+/* Botones */
+.favorito-btn {
+  background: none;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.favorito-btn.favorito {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.favorito-btn.animating {
+  animation: pulse 0.5s ease-in-out;
+}
+
+.contactar {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.contactar:hover {
+  background-color: var(--tertiary-color);
+}
+
+.reporte-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.reporte-btn:hover {
+  background-color: #c82333;
+}
+
+.reporte-btn i {
+  font-size: 16px;
+}
+
+/* Estados de carga y error */
+.loading {
+  text-align: center;
+  padding: 40px;
+  background-color: var(--card-background);
+  color: var(--text-color);
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #d32f2f;
+  background-color: var(--error-background);
+  border-radius: 4px;
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-image {
+    height: 400px;
+  }
+
+  .vehicle-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .vehicle-title,
+  .vehicle-price {
+    font-size: 1.5rem;
+  }
+
+  .vehicle-actions {
+    flex-direction: column;
+  }
+
+  .favorito-btn,
+  .contactar {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .seller-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .delete-image-btn {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .delete-image-btn i {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-image {
+    height: 300px;
+  }
+
+  .thumbnails {
+    justify-content: flex-start;
+  }
+
+  .thumbnail {
+    width: 80px;
+    height: 60px;
+  }
+
+  .vehicle-title,
+  .vehicle-price {
+    font-size: 1.2rem;
+  }
+
+  .detail-item {
+    padding: 12px;
+  }
+
+  .detail-item i {
+    font-size: 1rem;
+  }
+
+  .detail-item span {
+    font-size: 0.9rem;
+  }
+
+  .details-section {
+    padding: 20px;
+  }
+}
+
+/* Estilos para la sección de subida de imágenes */
+.upload-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.upload-label {
+  padding: 15px 30px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.upload-label:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.selected-files-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.selected-files-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  padding: 10px;
+  background-color: var(--card-details-background);
+  border-radius: 6px;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.upload-btn {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.upload-btn:disabled {
+  background-color: var(--border-color);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.change-files-btn {
+  padding: 10px 20px;
+  background-color: var(--card-details-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.change-files-btn:hover:not(.disabled) {
+  background-color: var(--border-color);
+  transform: translateY(-2px);
+}
+
+.change-files-btn.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Estilos para el botón de eliminar imagen */
+.delete-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(220, 53, 69, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.delete-image-btn:hover {
+  background-color: rgba(220, 53, 69, 1);
+  transform: scale(1.1);
+}
+
+.delete-image-btn i {
+  font-size: 14px;
+}
+
+.thumbnail:hover .delete-image-btn {
+  opacity: 1;
+}
+
+/* Estilos para el mapa */
+.map-container {
+  margin-top: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.location-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background-color: var(--card-details-background);
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.location-text i {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+}
+
+.location-text span {
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.insurance-section {
+  margin: 2rem auto;
+  text-align: center;
+  max-width: 1000px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.insurance-image {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin: 0 auto 2rem;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.small-insurance-image {
+  max-width: 300px;
+  margin: 0 auto 1rem;
+}
+
+.insurance-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.insurance-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.insurance-btn {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 2px solid #dcbc7c;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.insurance-btn:hover {
+  background-color: #dcbc7c;
+  color: white;
+}
+
+.insurance-dropdown {
+  position: relative;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dcbc7c;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+}
+
+.insurance-dropdown:hover {
+  transform: scale(1.1);
+  background-color: #c5a86c;
+}
+
+.dropdown-icon {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.insurance-dropdown.active .dropdown-icon {
+  transform: rotate(45deg);
+}
+
+.dropdown-content {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  padding: 1rem;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 10;
+}
+
+.insurance-dropdown.active .dropdown-content {
+  display: block;
+}
+
+.dropdown-content p {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .insurance-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .insurance-button-container {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .dropdown-content {
+    width: 200px;
+  }
+
+  .insurance-image {
+    max-width: 100%;
+  }
+} 

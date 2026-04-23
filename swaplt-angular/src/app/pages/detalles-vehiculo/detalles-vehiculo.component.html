@@ -1,0 +1,283 @@
+<div class="container">
+  <!-- Estado de carga -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error">
+    <p>Error al cargar los detalles del vehículo</p>
+    <button *ngIf="vehiculo?.id" (click)="loadVehiculo(vehiculo!.id)" class="retry-button">Reintentar</button>
+  </div>
+
+  <!-- Detalles del vehículo -->
+  <div *ngIf="!loading && !error && vehiculo">
+    <!-- Galería de imágenes -->
+    <div class="gallery">
+      <div id="carouselVehiculo" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicadores -->
+        <div class="carousel-indicators">
+          <button *ngFor="let imagen of vehiculo.imagenes; let i = index" 
+                  type="button" 
+                  data-bs-target="#carouselVehiculo" 
+                  [attr.data-bs-slide-to]="i"
+                  [class.active]="i === 0"
+                  [attr.aria-label]="'Slide ' + (i + 1)">
+          </button>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+          <div *ngFor="let imagen of vehiculo.imagenes; let i = index" 
+               class="carousel-item" 
+               [class.active]="i === 0">
+            <img [src]="imagen.preview_url || imagen.url" 
+                 class="d-block w-100" 
+                 [alt]="' imagen ' + (i + 1)">
+            <div class="carousel-caption d-none">
+              <p>Imagen {{ i + 1 }} de {{ vehiculo.imagenes.length }}</p>
+            </div>
+            <!-- Botón de eliminación para propietarios -->
+            <button class="delete-image-btn" 
+                    *ngIf="esPropietario"
+                    (click)="eliminarImagen(imagen.id)">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselVehiculo" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselVehiculo" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Botón de subida de imágenes para propietarios -->
+    <div class="upload-section" *ngIf="esPropietario">
+      <div class="file-upload">
+        <!-- Botón de selección de archivos (oculto) -->
+        <input type="file" 
+               id="imagenes" 
+               name="imagenes" 
+               multiple 
+               accept="image/*"
+               (change)="onFileSelected($event)"
+               [disabled]="isUploading"
+               style="display: none;">
+        
+        <!-- Si no hay archivos seleccionados, mostrar botón de selección -->
+        <div *ngIf="selectedFiles.length === 0">
+          <label for="imagenes" class="upload-label">
+            <i class="fas fa-cloud-upload-alt"></i>
+            Seleccionar imágenes
+          </label>
+        </div>
+
+        <!-- Si hay archivos seleccionados, mostrar información y botones -->
+        <div class="selected-files-container" *ngIf="selectedFiles.length > 0">
+          <div class="selected-files-info">
+            <i class="fas fa-images"></i>
+            <span>{{ selectedFiles.length }} {{ selectedFiles.length === 1 ? 'archivo seleccionado' : 'archivos seleccionados' }}</span>
+          </div>
+          <div class="upload-actions">
+            <button class="upload-btn" (click)="subirImagenes()" [disabled]="isUploading">
+              <i class="fas fa-upload"></i>
+              {{ isUploading ? 'Subiendo...' : 'Subir imágenes' }}
+            </button>
+            <label for="imagenes" class="change-files-btn" [class.disabled]="isUploading">
+              <i class="fas fa-exchange-alt"></i>
+              Cambiar selección
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Información principal del vehículo -->
+    <div class="vehicle-info">
+      <div class="vehicle-header">
+        <h1 class="vehicle-title">{{ vehiculo.marca }} {{ vehiculo.modelo }}</h1>
+        <p class="vehicle-price">€{{ vehiculo.precio | number:'1.0-0' }}</p>
+      </div>
+      
+      <div class="vehicle-actions">
+        <button class="favorito-btn" (click)="toggleFavorito()" [class.favorito]="isFavorito()" [class.animating]="animating">
+          <i [class]="isFavorito() ? 'fas fa-heart' : 'far fa-heart'"></i>
+          {{ isFavorito() ? 'Guardado en favoritos' : 'Agregar a favoritos' }}
+        </button>
+        <button class="contactar" (click)="contactar()">
+          <i class="fas fa-comment"></i> Contactar vendedor
+        </button>
+        <button class="reporte-btn" (click)="descargarReporte()">
+          <i class="fas fa-file-pdf"></i> Descargar Reporte
+        </button>
+      </div>
+    </div>
+
+    <!-- Sección: Información Básica -->
+    <div class="details-section">
+      <h2>Información Básica</h2>
+      <div class="details-grid">
+        <div class="detail-item">
+          <i class="fas fa-calendar"></i>
+          <span>Año: {{ vehiculo.anio }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Kilometraje: {{ vehiculo.kilometraje | number }} km</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-gas-pump"></i>
+          <span>Combustible: {{ vehiculo.tipo_combustible }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-cog"></i>
+          <span>Transmisión: {{ vehiculo.transmision }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-car"></i>
+          <span>Estado: {{ vehiculo.estado }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-paint-brush"></i>
+          <span>Color: {{ vehiculo.color }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Características Técnicas -->
+    <div class="details-section">
+      <h2>Características Técnicas</h2>
+      <div class="details-grid">
+        <div class="detail-item">
+          <i class="fas fa-bolt"></i>
+          <span>Potencia: {{ vehiculo.fuerza }} CV</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-engine"></i>
+          <span>Motor: {{ vehiculo.capacidad_motor }}L</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-door-open"></i>
+          <span>Puertas: {{ vehiculo.numero_puertas }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-id-card"></i>
+          <span>Matrícula: {{ vehiculo.matricula }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-barcode"></i>
+          <span>Número de Serie: {{ vehiculo.numero_serie }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Ubicación: {{ vehiculo.ubicacion }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Ubicación -->
+    <div class="details-section">
+      <h2>Ubicación</h2>
+      <div class="map-container">
+        <google-map
+          [center]="center"
+          [zoom]="zoom"
+          width="100%"
+          height="400px">
+          <map-marker
+            *ngIf="markerPosition"
+            [position]="markerPosition"
+            [title]="vehiculo.marca + ' ' + vehiculo.modelo">
+          </map-marker>
+        </google-map>
+        <div class="location-text">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>{{ vehiculo.ubicacion }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Descripción -->
+    <div class="details-section">
+      <h2>Descripción</h2>
+      <div class="description-content">
+        <p>{{ vehiculo.descripcion }}</p>
+      </div>
+    </div>
+
+    <!-- Sección: Información del Vendedor -->
+    <div class="details-section">
+      <h2>Información del Vendedor</h2>
+      <div class="seller-info">
+        <div class="seller-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="seller-details">
+          <h3>{{ vehiculo.propietario.nombre }}</h3>
+          <p>ID de Usuario: 0000{{ vehiculo.propietario.id }}</p>
+          <button class="ver-perfil-btn" (click)="verPerfil()">
+            <i class="fas fa-user-circle"></i> Ver Perfil
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Calcula Seguro -->
+    <div class="details-section">
+      <h2>Calcula Seguro</h2>
+      <div class="insurance-section">
+        <img src="assets/imgs/seguros.jpg" alt="Seguros" class="insurance-image small-insurance-image">
+        <div class="insurance-buttons">
+          <div class="insurance-button-container">
+            <button class="insurance-btn" (click)="redirectToInsurance('mapfre')">
+              Mapfre
+            </button>
+            <div class="insurance-dropdown" (click)="toggleDropdown($event)">
+              <span class="dropdown-icon">+</span>
+              <div class="dropdown-content">
+                <p>Descubre las mejores coberturas y precios competitivos con Mapfre. Protege tu vehículo con una de las aseguradoras más confiables del mercado.</p>
+              </div>
+            </div>
+          </div>
+          <div class="insurance-button-container">
+            <button class="insurance-btn" (click)="redirectToInsurance('linea-directa')">
+              Línea Directa
+            </button>
+            <div class="insurance-dropdown" (click)="toggleDropdown($event)">
+              <span class="dropdown-icon">+</span>
+              <div class="dropdown-content">
+                <p>Línea Directa te ofrece seguros personalizados con la mejor relación calidad-precio. Obtén tu presupuesto en minutos.</p>
+              </div>
+            </div>
+          </div>
+          <div class="insurance-button-container">
+            <button class="insurance-btn" (click)="redirectToInsurance('mutua')">
+              Mutua
+            </button>
+            <div class="insurance-dropdown" (click)="toggleDropdown($event)">
+              <span class="dropdown-icon">+</span>
+              <div class="dropdown-content">
+                <p>Mutua Madrileña te brinda la tranquilidad que necesitas con coberturas completas y un servicio excepcional. Cotiza ahora.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

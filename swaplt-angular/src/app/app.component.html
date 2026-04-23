@@ -1,0 +1,114 @@
+<!-- app.component.html -->
+<div class="toolbar" role="banner">
+  <!-- Left: Brand/Logo -->
+  <div class="brand-section">
+    <button class="brand-button" (click)="navigateToHome()" data-no-translate="true">
+      <img alt="SWAPLT Logo" src="../assets/imgs/logo.png" data-no-translate="true" />
+      <span class="app-name" data-no-translate="true">SWAPLT</span>
+    </button>
+  </div>
+
+  <!-- Desktop Navigation -->
+  <div class="desktop-nav">
+    <!-- Center: Navigation Links -->
+    <div class="nav-center">
+      <div class="nav-links">
+        <a routerLink="/catalogo/pagina/1" class="nav-link">Catálogo</a>
+        <a routerLink="/favoritos" class="nav-link">Favoritos</a>
+        <a routerLink="/mensajes" class="nav-link">Mensajes</a>
+      </div>
+    </div>
+
+    <!-- Right: Action Buttons -->
+    <div class="action-buttons">
+      <!-- Selector de idiomas para desktop -->
+      <app-language-selector class="language-selector-desktop"></app-language-selector>
+      <button class="sell-button" routerLink="/vender-vehiculo">Vender</button>
+      <div class="profile-container">
+        <button class="profile-button" (click)="toggleDropdown()">
+          <span class="profile-icon">👤</span>
+        </button>
+        <div class="dropdown-menu" [class.show]="dropdownOpen">
+          <a routerLink="/profile" class="dropdown-item">Ver Perfil</a>
+          <ng-container *ngIf="isAuthenticated">
+            <hr class="dropdown-divider">
+            <a href="#" class="dropdown-item" (click)="logOut($event)">LogOut</a>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------------- Menu de botones de Movil -------------------->
+  <div class="mobile-menu-container">
+    <button class="mobile-menu-button" (click)="toggleMobileMenu()">
+      <span class="menu-icon">{{ mobileMenuOpen ? '✕' : '☰' }}</span>
+    </button>
+
+    <div class="mobile-dropdown" [class.open]="mobileMenuOpen">
+      <div class="mobile-nav-links">
+        <a routerLink="/catalogo/pagina/1" class="mobile-nav-link">Catálogo</a>
+        <a routerLink="/favoritos" class="mobile-nav-link">Favoritos</a>
+        <a routerLink="/mensajes" class="mobile-nav-link">Mensajes</a>
+      </div>
+      <div class="mobile-action-buttons">
+        <!-- Selector de idiomas para móvil -->
+        <app-language-selector class="language-selector-mobile"></app-language-selector>
+        <button class="mobile-sell-button" routerLink="/vender-vehiculo">Vender</button>
+        <button class="mobile-profile-button" (click)="toggleDropdown()" data-no-translate="true">
+          <span class="profile-icon" data-no-translate="true">👤</span> <span>Mi Perfil</span>
+        </button>
+      </div>
+      <div class="mobile-dropdown-menu" [class.show]="dropdownOpen">
+        <a routerLink="/profile" class="dropdown-item">Ver Perfil</a>
+        <ng-container *ngIf="isAuthenticated">
+          <hr class="dropdown-divider">
+          <a href="#" class="dropdown-item" (click)="logOut($event)">LogOut</a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<!-------------------------------------------------------------------->
+
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<app-theme-toggle></app-theme-toggle>
+
+<!-------------------------- Pie de pagina -------------------------->
+<footer class="main-footer" [class.show]="footerVisible">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3 class="footer-title">Navegación</h3>
+      <ul class="footer-links">
+        <li><a routerLink="/catalogo/pagina/1">Catálogo</a></li>
+        <li><a routerLink="/favoritos">Favoritos</a></li>
+        <li><a routerLink="/mensajes">Mensajes</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Legal</h3>
+      <ul class="footer-links">
+        <li><a routerLink="/static/terminos">Términos de uso</a></li>
+        <li><a routerLink="/static/privacidad">Política de privacidad</a></li>
+        <li><a routerLink="/static/ayuda">Ayuda</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h3 class="footer-title">Contacto</h3>
+      <ul class="footer-links">
+        <li>swaplt.comprayventa&#64;gmail.com</li>
+        <li>+34 691 26 19 55</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="copyright" data-no-translate="true">
+    <span data-no-translate="true">© 2025</span> <span data-no-translate="true">SWAPLT</span><span data-no-translate="true">.</span> <span>Todos los derechos reservados</span>
+  </p>
+</footer>
+<!------------------------------------------------------------------------------>

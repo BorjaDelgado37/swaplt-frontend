@@ -1,0 +1,18 @@
+<ng-container *ngIf="!isLocalhost; else placeholderAd">
+  <ins class="adsbygoogle"
+       style="display:block; min-width:250px; min-height:250px;"
+       [attr.data-ad-client]="'ca-' + GOOGLE_ADS_CLIENT_ID"
+       [attr.data-ad-slot]="adSlot"
+       [attr.data-ad-format]="adFormat"
+       data-full-width-responsive="true">
+  </ins>
+</ng-container>
+
+<ng-template #placeholderAd>
+  <div class="ad-placeholder" style="display: flex; align-items: center; justify-content: center; background-color: #f0f0f0; border: 2px dashed #ccc; color: #888; min-width: 250px; min-height: 250px; text-align: center; padding: 1rem;">
+    <div>
+      <i class="fas fa-ad" style="font-size: 2rem; margin-bottom: 10px;"></i>
+      <p style="margin: 0; font-size: 0.9rem;"><strong>Espacio Publicitario</strong><br><small>(Los anuncios de Google no se muestran en localhost)</small></p>
+    </div>
+  </div>
+</ng-template>

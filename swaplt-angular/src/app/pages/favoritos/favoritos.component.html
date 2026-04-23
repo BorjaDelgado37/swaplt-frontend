@@ -1,0 +1,83 @@
+<div class="favoritos-container">
+  <h2>Mis Vehículos Favoritos</h2>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && favoritos.length === 0" class="no-favoritos">
+    <p>No tienes vehículos favoritos. ¡Agrega algunos desde el catálogo!</p>
+  </div>
+
+  <div *ngIf="!loading && favoritos.length > 0" class="vehiculos-grid">
+    <div *ngFor="let favorito of paginatedFavoritos" class="vehiculo-card">
+      <div class="vehiculo-image">
+        <img [src]="getVehiculoImagen(favorito.vehiculo)" 
+             [alt]="favorito.vehiculo.marca + ' ' + favorito.vehiculo.modelo">
+        <button class="favorito-btn" 
+                (click)="removeFavorito(favorito.id)"
+                [class.favorito]="true"
+                [class.animating]="isAnimating(favorito.id)">
+          <i class="fas fa-heart"></i>
+          <i class="fas fa-heart-broken broken-heart" *ngIf="isAnimating(favorito.id)"></i>
+        </button>
+      </div>
+      
+      <div class="vehiculo-info">
+        <div class="vehiculo-header">
+          <h3>{{ favorito.vehiculo.marca }} {{ favorito.vehiculo.modelo }}</h3>
+          <p class="precio">€{{ favorito.vehiculo.precio | number:'1.0-0' }}</p>
+        </div>
+
+        <div class="vehiculo-detalles-container">
+          <div class="vehiculo-details">
+            <div class="detail-item">
+              <i class="fas fa-calendar"></i>
+              <span>{{ favorito.vehiculo.anio }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>{{ favorito.vehiculo.kilometraje | number }} km</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-cog"></i>
+              <span>{{ favorito.vehiculo.transmision }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vehiculo-footer">
+          <div class="vehiculo-actions">
+            <button class="ver-detalles" (click)="verDetalles(favorito.vehiculo.id)">
+              <i class="fas fa-eye"></i> Ver Detalles
+            </button>
+            <button class="contactar" [routerLink]="['/mensajes', favorito.vehiculo.user_id]">
+              <i class="fas fa-comment"></i> Contactar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <app-pagination
+    *ngIf="!loading && !error && favoritos.length > 0"
+    [currentPage]="currentPage"
+    [totalItems]="totalItems"
+    [itemsPerPage]="itemsPerPage"
+    (pageChange)="onPageChange($event)">
+  </app-pagination>
+</div> 
