@@ -66,7 +66,7 @@
 }
 
 .toolbar img {
-  height: 50px;
+  height: 65px;
   width: auto;
   transition: transform 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
