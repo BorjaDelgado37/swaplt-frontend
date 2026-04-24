@@ -15,7 +15,7 @@
 .brand-button {
   display: inline-flex;
   align-items: center;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   background: #34a4b4;
   border: none;
   border-radius: 100px;
@@ -66,7 +66,7 @@
 }
 
 .toolbar img {
-  height: 65px;
+  height: 50px;
   width: auto;
   transition: transform 0.3s ease;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
