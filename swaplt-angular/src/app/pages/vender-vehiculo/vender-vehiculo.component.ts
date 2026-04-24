@@ -114,7 +114,16 @@ export class VenderVehiculoComponent implements OnInit {
       this.vehiculoService.crear(vehiculoData).subscribe({
         next: (response) => {
           this.loading = false;
-          this.router.navigate(['/profile']);
+          // Obtenemos el ID del nuevo coche de la respuesta (dependiendo de la estructura del backend)
+          const newId = response?.vehiculo?.id || response?.data?.id || response?.id;
+          
+          if (newId) {
+            // Redirigir directamente a la página del coche para que pueda subir las fotos
+            this.router.navigate(['/vehiculo', newId]);
+          } else {
+            // Fallback por si acaso no viniera el ID
+            this.router.navigate(['/profile']);
+          }
         },
         error: (error) => {
           this.loading = false;
