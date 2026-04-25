@@ -161,7 +161,7 @@
         <div class="vehiculo-info">
           <div class="vehiculo-header">
             <h3>{{ vehiculo.marca }} {{ vehiculo.modelo }}</h3>
-            <p class="precio">${{ vehiculo.precio | number:'1.0-0' }}</p>
+            <p class="precio">€{{ vehiculo.precio | number:'1.0-0' }}</p>
           </div>
           
           <div class="vehiculo-detalles-container">

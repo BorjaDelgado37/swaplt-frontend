@@ -36,6 +36,7 @@
               </span>
           </td>
           <td class="action-buttons">
+            <button [routerLink]="['/perfil-usuario', user.id]" style="background-color: #34a4b4;">Ver Perfil</button>
             <button (click)="showEditForm(user)">Editar</button>
             <button (click)="deleteUser(user.id)">Eliminar</button>
           </td>
