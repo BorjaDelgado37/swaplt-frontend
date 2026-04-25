@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { VehiculoReporteService } from '../../services/vehiculos/vehiculo-reporte.service';
 import { VehiculoImagenService } from '../../services/vehiculos/vehiculo-imagen.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
+import { VehiculoService } from '../../services/vehiculos/vehiculo.service';
 import { environment } from '../../../environments/environment';
 
 interface Imagen {
@@ -61,6 +62,7 @@ export class DetallesVehiculoComponent implements OnInit {
   selectedFiles: File[] = [];
   isUploading = false;
   esPropietario = false;
+  isAdmin = false;
   
   // Propiedades para el mapa
   center: google.maps.LatLngLiteral = { lat: 40.4168, lng: -3.7038 }; // Madrid por defecto
@@ -84,7 +86,8 @@ export class DetallesVehiculoComponent implements OnInit {
     private router: Router,
     private vehiculoReporteService: VehiculoReporteService,
     private vehiculoImagenService: VehiculoImagenService,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private vehiculoServiceGlobal: VehiculoService
   ) {
     // Cargar el script de Google Maps de manera asíncrona
     if (!this.apiLoaded) {
@@ -112,11 +115,12 @@ export class DetallesVehiculoComponent implements OnInit {
     this.vehiculosService.getVehiculoById(id).subscribe({
       next: (response) => {
         this.vehiculo = response;
-        // Verificar si el usuario actual es el propietario
+        // Verificar si el usuario actual es el propietario o admin
         const userStr = localStorage.getItem('user');
         if (userStr) {
           const user = JSON.parse(userStr);
           this.esPropietario = user.id === this.vehiculo?.user_id;
+          this.isAdmin = user.rol === 'admin';
         }
         
         // Actualizar la ubicación del mapa si hay una ubicación válida
@@ -360,6 +364,21 @@ export class DetallesVehiculoComponent implements OnInit {
   verPerfil(): void {
     if (this.vehiculo?.user_id) {
       this.router.navigate(['/perfil-usuario', this.vehiculo.user_id]);
+    }
+  }
+
+  eliminarAnuncioAdmin(): void {
+    if (this.vehiculo?.id && confirm('¿Estás seguro de que deseas eliminar este anuncio como administrador? Esta acción no se puede deshacer.')) {
+      this.vehiculoServiceGlobal.eliminar(this.vehiculo.id).subscribe({
+        next: () => {
+          this.toastr.success('Anuncio eliminado con éxito');
+          this.router.navigate(['/catalogo/pagina/1']);
+        },
+        error: (error) => {
+          console.error('Error al eliminar:', error);
+          this.toastr.error('Error al eliminar el anuncio');
+        }
+      });
     }
   }
 } 

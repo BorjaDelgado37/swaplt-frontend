@@ -125,6 +125,9 @@
         <button class="reporte-btn" (click)="descargarReporte()">
           <i class="fas fa-file-pdf"></i> Descargar Reporte
         </button>
+        <button class="delete-admin-btn" *ngIf="isAdmin" (click)="eliminarAnuncioAdmin()" style="background-color: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 25px; margin-left: 0.5rem; font-weight: 600; cursor: pointer;">
+          <i class="fas fa-trash"></i> Eliminar (Admin)
+        </button>
       </div>
     </div>
 
