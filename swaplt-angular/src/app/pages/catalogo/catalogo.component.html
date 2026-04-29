@@ -1,7 +1,5 @@
-<div class="catalogo-layout">
-  <!-- Contenido principal -->
-  <div class="catalogo-container">
-    <h2>¿Qué quieres encontrar?</h2>
+<div class="catalogo-container">
+  <h2>¿Qué quieres encontrar?</h2>
 
     <div class="search-and-filter-container">
       <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
@@ -226,10 +224,4 @@
         <i class="fas fa-times"></i> Limpiar búsqueda
       </button>
     </div>
-  </div>
-
-  <!-- Sidebar con anuncio -->
-  <div class="catalogo-sidebar">
-    <app-google-ads></app-google-ads>
-  </div>
 </div>
