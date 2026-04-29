@@ -1,25 +1,35 @@
 <div class="container">
   <h2>Categorías</h2>
 
-  <!-- Formulario para agregar/editar categorías -->
-  <div class="form-group">
-    <input
-      type="text"
-      [(ngModel)]="categoria.nombre"
-      class="form-control"
-      placeholder="Ingrese el nombre de la categoría"
-    />
-    <div class="form-buttons">
-      <button (click)="saveCategoria()" class="btn btn-info">
-        {{ editing ? 'Actualizar' : 'Agregar' }}
-      </button>
-      <button *ngIf="editing" (click)="cancelEdit()" class="btn btn-danger">Cancelar</button>
+  <!-- Gráfica de stock por categoría -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <h3><i class="fas fa-chart-bar"></i> Stock de Vehículos por Categoría</h3>
+      <span class="chart-subtitle">Número total de vehículos publicados en cada categoría</span>
+    </div>
+    <div class="chart-wrapper">
+      <canvas #stockChart></canvas>
     </div>
   </div>
 
   <!-- Tabla de categorías -->
   <div class="table-header">
     <h3>Lista de Categorías</h3>
+
+    <!-- Formulario edición (solo visible al editar) -->
+    <div class="form-group" *ngIf="editing">
+      <input
+        type="text"
+        [(ngModel)]="categoria.nombre"
+        class="form-control"
+        placeholder="Nombre de la categoría"
+      />
+      <div class="form-buttons">
+        <button (click)="saveCategoria()" class="btn btn-info">Actualizar</button>
+        <button (click)="cancelEdit()" class="btn btn-danger">Cancelar</button>
+      </div>
+    </div>
+
     <table class="category-table">
       <thead>
       <tr>
