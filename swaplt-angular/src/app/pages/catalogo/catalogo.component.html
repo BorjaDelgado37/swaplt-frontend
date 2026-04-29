@@ -3,10 +3,20 @@
   <div class="catalogo-container">
     <h2>¿Qué quieres encontrar?</h2>
 
-    <!-- Botón de filtros -->
-    <button class="filter-toggle-btn" (click)="toggleFilters()">
-      <i class="fas fa-filter"></i>
-    </button>
+    <div class="search-and-filter-container">
+      <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" formControlName="query" placeholder="Busca por marca o modelo (ej. BMW X5)..." autocomplete="off">
+          <button type="submit" class="search-btn">Buscar</button>
+        </div>
+      </form>
+
+      <!-- Botón de filtros -->
+      <button class="filter-toggle-btn" (click)="toggleFilters()">
+        <i class="fas fa-filter"></i>
+      </button>
+    </div>
 
     <!-- Panel de filtros -->
     <div class="filters-panel" [class.show]="showFilters">

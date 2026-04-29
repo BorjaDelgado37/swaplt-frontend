@@ -131,7 +131,11 @@ export class VehiculosService {
     return this.http.get<any>(`${this.apiUrl}/search`, { params }).pipe(
       map(response => {
         if (response.success && response.data) {
-          return Array.isArray(response.data) ? response.data : [];
+          if (Array.isArray(response.data)) {
+            return response.data;
+          } else if (response.data.data && Array.isArray(response.data.data)) {
+            return response.data.data;
+          }
         }
         return [];
       }),
