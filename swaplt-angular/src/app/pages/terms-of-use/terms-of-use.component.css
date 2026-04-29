@@ -1,0 +1,67 @@
+.legal-container {
+  max-width: 800px;
+  margin: 100px auto;
+  padding: 2rem;
+  background: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--text-color);
+}
+
+.legal-header {
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.legal-header h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-header p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.legal-content h3 {
+  color: var(--secondary-color);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-content p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.legal-footer {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.btn-back {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  background-color: var(--quaternary-color);
+}
+
+@media (max-width: 768px) {
+  .legal-container {
+    margin: 80px 1rem;
+    padding: 1.5rem;
+  }
+}

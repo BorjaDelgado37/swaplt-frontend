@@ -37,6 +37,8 @@ import { GoogleCallbackComponent } from './pages/auth/google-callback/google-cal
 import { GoogleAdsComponent } from './components/google-ads/google-ads.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { InicioComponent } from './pages/inicio/inicio.component';
     EstadisticasVehiculoComponent,
     DetalleVehiculoPropioComponent,
     GoogleCallbackComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    PrivacyPolicyComponent,
+    TermsOfUseComponent
   ],
   imports: [
     BrowserModule,

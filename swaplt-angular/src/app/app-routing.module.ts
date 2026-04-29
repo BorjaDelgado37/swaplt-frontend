@@ -15,6 +15,8 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { PerfilUsuarioComponent } from './pages/perfil-usuario/perfil-usuario.component';
 import { DetalleVehiculoPropioComponent } from './pages/mis-vehiculos/detalle-vehiculo-propio/detalle-vehiculo-propio.component';
 import { GoogleCallbackComponent } from './pages/auth/google-callback/google-callback.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { TermsOfUseComponent } from './pages/terms-of-use/terms-of-use.component';
 
 import { InicioComponent } from './pages/inicio/inicio.component';
 
@@ -40,6 +42,8 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'perfil-usuario/:id', component: PerfilUsuarioComponent },
   { path: 'auth/google/callback', component: GoogleCallbackComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'terms-of-use', component: TermsOfUseComponent },
   { path: '**', redirectTo: '/catalogo' }  // Redirige a catálogo si la ruta no existe
 ];
 
