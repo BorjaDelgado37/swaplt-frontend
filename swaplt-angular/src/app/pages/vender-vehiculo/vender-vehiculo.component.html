@@ -102,10 +102,10 @@
       <div class="form-group">
         <label for="matricula">Matrícula*</label>
         <input type="text" id="matricula" formControlName="matricula" class="form-control">
-        <div class="error-message" *ngIf="f['matricula']?.errors?.['required'] && f['matricula']?.touched">
+        <div class="validation-error" *ngIf="f['matricula']?.errors?.['required'] && f['matricula']?.touched">
           La matrícula es obligatoria
         </div>
-        <div class="error-message" *ngIf="f['matricula']?.errors?.['pattern'] && f['matricula']?.touched">
+        <div class="validation-error" *ngIf="f['matricula']?.errors?.['pattern'] && f['matricula']?.touched">
           La matrícula debe tener el formato: 1234ABC
         </div>
       </div>
@@ -117,7 +117,17 @@
 
       <div class="form-group">
         <label for="numero_puertas">Número de Puertas*</label>
-        <input type="number" id="numero_puertas" formControlName="numero_puertas" class="form-control">
+        <select id="numero_puertas" formControlName="numero_puertas" class="form-control">
+          <option value="">Selecciona el número de puertas</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+        <div class="validation-error" *ngIf="f['numero_puertas']?.errors?.['required'] && f['numero_puertas']?.touched">
+          El número de puertas es obligatorio
+        </div>
       </div>
     </div>
 
