@@ -314,4 +314,4 @@ ng build --configuration production
 [Borja Delgado Sánchez]
 
 ### Versión
-1.0.0 (Fecha: 14/05/2025)
+1.0.0 (Fecha: 14/05/2026)
