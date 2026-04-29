@@ -76,9 +76,9 @@ export class VenderVehiculoComponent implements OnInit {
       capacidad_motor: ['', [Validators.required, Validators.min(0)]],
       color: ['', Validators.required],
       ubicacion: ['', Validators.required],
-      matricula: ['', [Validators.required, Validators.pattern(/^[0-9]{4}[A-Z]{3}$/i)]],
+      matricula: ['', [Validators.required, Validators.pattern(/^[0-9]{4}[A-Za-z]{3}$/)]],
       numero_serie: ['', Validators.required],
-      numero_puertas: ['', [Validators.required, Validators.min(1)]],
+      numero_puertas: ['', [Validators.required, Validators.pattern(/^[2-6]$/)]],
       descripcion: ['', [Validators.required, Validators.maxLength(2000)]],
       vehiculo_robado: ['', Validators.required],
       vehiculo_libre_accidentes: ['', Validators.required]
