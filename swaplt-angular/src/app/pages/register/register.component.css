@@ -88,8 +88,7 @@ body {
 
 .password-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
+  width: 100%;
 }
 
 .password-wrapper input {
@@ -99,6 +98,8 @@ body {
 .password-toggle {
   position: absolute;
   right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
