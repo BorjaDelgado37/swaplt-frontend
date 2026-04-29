@@ -3,12 +3,37 @@
 
   <nav>
     <ul>
-      <li><a routerLink="/admin/usuarios">Usuarios</a></li>
-      <li><a routerLink="/admin/vehiculos">Vehículos</a></li>
-      <li><a routerLink="/admin/categorias">Categorías</a></li>
-      <li><a routerLink="/admin/bloqueos">Bloqueos</a></li>
+      <li><a routerLink="/admin/usuarios" routerLinkActive="active"><i class="fas fa-users"></i> Usuarios</a></li>
+      <li><a routerLink="/admin/vehiculos" routerLinkActive="active"><i class="fas fa-car"></i> Vehículos</a></li>
+      <li><a routerLink="/admin/categorias" routerLinkActive="active"><i class="fas fa-tags"></i> Categorías</a></li>
+      <li><a routerLink="/admin/bloqueos" routerLinkActive="active"><i class="fas fa-ban"></i> Bloqueos</a></li>
     </ul>
   </nav>
 
-  <router-outlet></router-outlet> <!-- Aquí se cargarán los componentes -->
+  <!-- Bienvenida solo cuando no hay subruta -->
+  <div class="admin-welcome" *ngIf="!isSubRouteActive">
+    <img src="/assets/imgs/logo.png" alt="Logo SWAPLT" class="welcome-logo">
+    <h3>Bienvenido al Panel de Control</h3>
+    <p>Selecciona una sección del menú para comenzar a gestionar la plataforma.</p>
+    <div class="stats-hint">
+      <div class="hint-item">
+        <i class="fas fa-users"></i>
+        <span>Gestiona usuarios y roles</span>
+      </div>
+      <div class="hint-item">
+        <i class="fas fa-car"></i>
+        <span>Controla el inventario de vehículos</span>
+      </div>
+      <div class="hint-item">
+        <i class="fas fa-tags"></i>
+        <span>Administra categorías y estadísticas</span>
+      </div>
+      <div class="hint-item">
+        <i class="fas fa-ban"></i>
+        <span>Gestiona bloqueos de usuarios</span>
+      </div>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
 </div>
