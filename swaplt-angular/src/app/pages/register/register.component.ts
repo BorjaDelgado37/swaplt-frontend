@@ -13,9 +13,19 @@ export class RegisterComponent {
   email = '';
   password = '';
   password_confirmation = '';
+  showPassword = false;
+  showPasswordConfirmation = false;
   errorMessage = '';
   successMessage = '';
   isLoading = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  togglePasswordConfirmationVisibility() {
+    this.showPasswordConfirmation = !this.showPasswordConfirmation;
+  }
 
   constructor(
     private authService: AuthService, 

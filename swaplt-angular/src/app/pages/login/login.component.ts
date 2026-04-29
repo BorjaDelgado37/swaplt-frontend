@@ -11,8 +11,13 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   email = '';
   password = '';
+  showPassword = false;
   errorMessage = '';
   isLoading = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   constructor(
     private authService: AuthService, 

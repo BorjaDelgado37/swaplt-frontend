@@ -12,9 +12,19 @@ export class ResetPasswordComponent {
   token: string = '';
   password: string = '';
   password_confirmation: string = '';
+  showPassword = false;
+  showPasswordConfirmation = false;
   errorMessage: string = '';
   successMessage: string = '';
   isLoading: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  togglePasswordConfirmationVisibility() {
+    this.showPasswordConfirmation = !this.showPasswordConfirmation;
+  }
 
   constructor(
     private router: Router,
