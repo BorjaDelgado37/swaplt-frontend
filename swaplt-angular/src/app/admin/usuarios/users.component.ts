@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {UsersService} from "./service/users.service";
+import { UsersService } from "./service/users.service";
 
 @Component({
   selector: 'app-users',
@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
   currentUserId: number | null = null;
-  
+
   // Propiedades para paginación
   currentPage: number = 1;
   itemsPerPage: number = 6; // Cambiar a 6 usuarios por página
@@ -85,7 +85,7 @@ export class UsersComponent implements OnInit {
       }
     });
   }
-  
+
   // Aplicar paginación en el cliente
   applyPagination() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -94,14 +94,14 @@ export class UsersComponent implements OnInit {
     this.users = this.displayedUsers; // Para mantener compatibilidad con el template
     console.log(`Mostrando usuarios ${startIndex + 1} a ${endIndex} de ${this.totalItems}`);
   }
-  
+
   onPageChange(page: any): void {
     console.log('Cambiando a página:', page);
     // Verificar que page sea un número válido
     const pageNumber = parseInt(page, 10);
     if (!isNaN(pageNumber) && pageNumber > 0) {
       this.currentPage = pageNumber;
-      
+
       // Si tenemos todos los usuarios, solo aplicamos paginación local
       if (this.allUsers.length > 0) {
         this.applyPagination();

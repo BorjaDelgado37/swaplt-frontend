@@ -6,6 +6,14 @@
 
   <!-- Vista de listado -->
   <div *ngIf="formMode === 'list'">
+
+    <!-- Gráfica Nuevo vs Usado -->
+    <div class="chart-card-small">
+      <div style="max-width:300px; margin: 0 auto;">
+        <canvas #estadoChart></canvas>
+      </div>
+    </div>
+
     <div class="table-actions">
       <button (click)="showCreateForm()">Nuevo Vehículo</button>
       <button (click)="loadVehiculos()">Recargar Lista</button>
@@ -14,36 +22,36 @@
     <div class="table-responsive" *ngIf="!isLoading && displayedVehiculos.length > 0">
       <table>
         <thead>
-        <tr>
-          <th>Propietario</th>
-          <th>Marca</th>
-          <th>Modelo</th>
-          <th>Año</th>
-          <th>Precio</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
+          <tr>
+            <th>Propietario</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let vehiculo of displayedVehiculos">
-          <td>{{ getNombreUsuario(vehiculo.user_id) }}</td>
-          <td>{{ vehiculo.marca }}</td>
-          <td>{{ vehiculo.modelo }}</td>
-          <td>{{ vehiculo.anio }}</td>
-          <td>{{ vehiculo.precio | currency }}</td>
+          <tr *ngFor="let vehiculo of displayedVehiculos">
+            <td>{{ getNombreUsuario(vehiculo.user_id) }}</td>
+            <td>{{ vehiculo.marca }}</td>
+            <td>{{ vehiculo.modelo }}</td>
+            <td>{{ vehiculo.anio }}</td>
+            <td>{{ vehiculo.precio | currency }}</td>
 
-          <td>
-            <span [class.estado-nuevo]="vehiculo.estado === 'nuevo'"
-                  [class.estado-usado]="vehiculo.estado === 'usado'">
-                  {{ vehiculo.estado }}
-            </span>
-          </td>
+            <td>
+              <span [class.estado-nuevo]="vehiculo.estado === 'nuevo'"
+                [class.estado-usado]="vehiculo.estado === 'usado'">
+                {{ vehiculo.estado }}
+              </span>
+            </td>
 
-          <td class="action-buttons">
-            <button (click)="showEditForm(vehiculo)">Editar</button>
-            <button (click)="deleteVehiculo(vehiculo.id)">Eliminar</button>
-          </td>
-        </tr>
+            <td class="action-buttons">
+              <button (click)="showEditForm(vehiculo)">Editar</button>
+              <button (click)="deleteVehiculo(vehiculo.id)">Eliminar</button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -63,20 +71,16 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    
+
     <!-- Mensaje de depuración -->
     <div *ngIf="errorMessage" class="error-debug">
       <p>Error: {{ errorMessage }}</p>
       <button (click)="loadVehiculos()" class="retry-button">Reintentar</button>
     </div>
-    
+
     <!-- Agregar el componente de paginación -->
-    <app-pagination
-      *ngIf="!isLoading && totalItems > 0"
-      [totalItems]="totalItems"
-      [itemsPerPage]="itemsPerPage"
-      [currentPage]="currentPage"
-      (pageChange)="onPageChange($event)">
+    <app-pagination *ngIf="!isLoading && totalItems > 0" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+      [currentPage]="currentPage" (pageChange)="onPageChange($event)">
     </app-pagination>
   </div>
 
@@ -106,11 +110,11 @@
         </div>
         <div class="form-group">
           <label>Precio:</label>
-          <input formControlName="precio" type="number" step="0.01"/>
+          <input formControlName="precio" type="number" step="0.01" />
         </div>
         <div class="form-group">
           <label>Año:</label>
-          <input formControlName="anio" type="number"/>
+          <input formControlName="anio" type="number" />
         </div>
         <div class="form-group">
           <label>Estado:</label>

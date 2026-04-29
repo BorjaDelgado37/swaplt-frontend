@@ -1,14 +1,18 @@
 // src/app/admin/vehiculos/vehiculos.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {VehiculosService} from "./service/vehiculos.service";
+import { VehiculosService } from "./service/vehiculos.service";
+
+declare var Chart: any;
 
 @Component({
   selector: 'app-vehiculos',
   templateUrl: './vehiculos.component.html',
   styleUrls: ['./vehiculos.component.css']
 })
-export class VehiculosComponent implements OnInit {
+export class VehiculosComponent implements OnInit, OnDestroy {
+  @ViewChild('estadoChart') estadoChartRef!: ElementRef;
+  private chartInstance: any = null;
   vehiculos: any[] = [];
   displayedVehiculos: any[] = []; // Vehículos mostrados en la página actual
   isLoading: boolean = false;
@@ -17,7 +21,7 @@ export class VehiculosComponent implements OnInit {
   usuarios: any[] = []; // lista de usuarios
   formMode: 'list' | 'create' | 'edit' = 'list';
   currentVehiculoId: number | null = null;
-  
+
   // Propiedades para paginación
   currentPage: number = 1;
   itemsPerPage: number = 6; // 6 vehículos por página
@@ -55,7 +59,7 @@ export class VehiculosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadVehiculos();
-    this.loadUsuarios(); 
+    this.loadUsuarios();
   }
 
   // Carga la lista de vehículos
@@ -70,6 +74,7 @@ export class VehiculosComponent implements OnInit {
         this.itemsPerPage = response.per_page;
         this.isLoading = false;
         this.formMode = 'list';
+        setTimeout(() => this.renderEstadoChart(), 150);
         console.log('Vehículos cargados:', this.vehiculos);
       },
       (error) => {
@@ -79,16 +84,65 @@ export class VehiculosComponent implements OnInit {
       }
     );
   }
-  
+
   // Aplicar paginación en el cliente
   applyPagination(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = Math.min(startIndex + this.itemsPerPage, this.allVehiculos.length);
     this.displayedVehiculos = this.allVehiculos.slice(startIndex, endIndex);
-    this.vehiculos = this.displayedVehiculos; // Para mantener compatibilidad con el template
-    console.log(`Mostrando vehículos ${startIndex + 1} a ${endIndex} de ${this.totalItems}`);
+    this.vehiculos = this.displayedVehiculos;
   }
-  
+
+  ngOnDestroy(): void {
+    if (this.chartInstance) this.chartInstance.destroy();
+  }
+
+  renderEstadoChart(): void {
+    if (!this.estadoChartRef) return;
+    if (this.chartInstance) this.chartInstance.destroy();
+
+    const nuevos = this.displayedVehiculos.filter(v => v.estado === 'nuevo').length;
+    const usados = this.displayedVehiculos.filter(v => v.estado === 'usado').length;
+
+    const build = () => {
+      this.chartInstance = new Chart(this.estadoChartRef.nativeElement, {
+        type: 'doughnut',
+        data: {
+          labels: ['Nuevos', 'Usados'],
+          datasets: [{
+            data: [nuevos, usados],
+            backgroundColor: ['rgba(52, 164, 180, 0.85)', 'rgba(220, 188, 124, 0.85)'],
+            borderColor: ['#34a4b4', '#dcbc7c'],
+            borderWidth: 2,
+          }]
+        },
+        options: {
+          responsive: true,
+          cutout: '65%',
+          plugins: {
+            legend: { position: 'bottom' },
+            title: {
+              display: true,
+              text: 'Vehículos: Nuevo vs Usado (página actual)',
+              font: { size: 15, weight: 'bold' },
+              color: '#34a4b4',
+              padding: { bottom: 16 }
+            }
+          }
+        }
+      });
+    };
+
+    if (!(window as any).Chart) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+      script.onload = () => build();
+      document.head.appendChild(script);
+    } else {
+      build();
+    }
+  }
+
   // Manejar cambio de página
   onPageChange(page: number): void {
     this.currentPage = page;
