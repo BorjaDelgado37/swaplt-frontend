@@ -148,6 +148,43 @@ body {
   opacity: 0.7;
 }
 
+/* Checkbox LOPD */
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+
+.checkbox-group label {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  margin-bottom: 0;
+  display: inline;
+  line-height: 1.4;
+}
+
+.legal-link {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.legal-link:hover {
+  color: var(--tertiary-color);
+  text-decoration: underline;
+}
+
 /* Loading spinner */
 .loading-spinner {
   width: 20px;

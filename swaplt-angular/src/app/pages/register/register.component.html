@@ -70,7 +70,18 @@
       </div>
     </div>
 
-    <button type="submit" class="btn" [disabled]="isLoading">
+    <div class="input-group checkbox-group">
+      <input 
+        type="checkbox" 
+        id="lopd" 
+        [(ngModel)]="lopdAccepted" 
+        name="lopd" 
+        required 
+        [disabled]="isLoading">
+      <label for="lopd">He leído y acepto la <a href="#" (click)="$event.preventDefault()" class="legal-link">Política de Privacidad</a> y los <a href="#" (click)="$event.preventDefault()" class="legal-link">Términos de Uso</a>.</label>
+    </div>
+
+    <button type="submit" class="btn" [disabled]="isLoading || !lopdAccepted">
       <span *ngIf="!isLoading">Registrarse</span>
       <span *ngIf="isLoading" class="loading-spinner"></span>
     </button>

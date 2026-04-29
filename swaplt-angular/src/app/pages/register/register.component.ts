@@ -15,6 +15,7 @@ export class RegisterComponent {
   password_confirmation = '';
   showPassword = false;
   showPasswordConfirmation = false;
+  lopdAccepted = false;
   errorMessage = '';
   successMessage = '';
   isLoading = false;
@@ -55,11 +56,18 @@ export class RegisterComponent {
       return;
     }
 
+    // Validación LOPD
+    if (!this.lopdAccepted) {
+      this.errorMessage = 'Debes aceptar la Política de Privacidad y Términos de Uso';
+      this.toastr.warning('Debes aceptar la Política de Privacidad y Términos de Uso');
+      return;
+    }
+
     this.isLoading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.authService.register(this.name, this.email, this.password, this.password_confirmation).subscribe({
+    this.authService.register(this.name, this.email, this.password, this.password_confirmation, this.lopdAccepted).subscribe({
       next: (response) => {
         this.isLoading = false;
         this.successMessage = '¡Registro exitoso! Por favor, verifica tu correo electrónico para activar tu cuenta.';

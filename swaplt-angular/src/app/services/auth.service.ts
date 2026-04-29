@@ -39,8 +39,8 @@ export class AuthService {
     );
   }
 
-  register(name: string, email: string, password: string, password_confirmation: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, { name, email, password, password_confirmation }).pipe(
+  register(name: string, email: string, password: string, password_confirmation: string, lopd_accepted: boolean): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, { name, email, password, password_confirmation, lopd_accepted }).pipe(
       catchError(this.handleError)
     );
   }
