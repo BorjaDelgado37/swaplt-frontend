@@ -39,7 +39,7 @@ export class EditarVehiculoComponent implements OnInit {
       capacidad_motor: ['', [Validators.required, Validators.min(0)]],
       color: ['', [Validators.required, Validators.maxLength(255)]],
       ubicacion: ['', [Validators.required, Validators.maxLength(255)]],
-      matricula: ['', [Validators.required, Validators.maxLength(255)]],
+      matricula: ['', [Validators.required, Validators.pattern(/^[0-9]{4}[A-Z]{3}$/i)]],
       numero_serie: ['', [Validators.required, Validators.maxLength(255)]],
       numero_puertas: ['', [Validators.required, Validators.min(0)]],
       descripcion: ['', [Validators.required, Validators.maxLength(255)]],
