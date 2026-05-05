@@ -55,6 +55,17 @@ export class VehiculosService {
     return this.http.get<any>(this.apiUrl, { params }).pipe(
       switchMap((response: any) => {
         const vehiculos = response.data;
+        if (!vehiculos || vehiculos.length === 0) {
+          this.vehiculosConPropietarios.next([]);
+          return of({
+            data: [],
+            current_page: response.current_page,
+            last_page: response.last_page,
+            per_page: response.per_page,
+            total: response.total
+          });
+        }
+
         // Inicializamos los vehículos con propietario por defecto
         const vehiculosIniciales = vehiculos.map((vehiculo: Vehiculo) => ({
           ...vehiculo,
@@ -140,6 +151,10 @@ export class VehiculosService {
         return [];
       }),
       switchMap(vehiculos => {
+        if (!vehiculos || vehiculos.length === 0) {
+          return of([]);
+        }
+        
         // Inicializamos los vehículos con propietario por defecto
         const vehiculosIniciales = vehiculos.map((vehiculo: Vehiculo) => ({
           ...vehiculo,
