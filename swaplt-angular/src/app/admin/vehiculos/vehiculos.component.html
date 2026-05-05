@@ -38,7 +38,7 @@
             <td>{{ vehiculo.marca }}</td>
             <td>{{ vehiculo.modelo }}</td>
             <td>{{ vehiculo.anio }}</td>
-            <td>{{ vehiculo.precio | currency }}</td>
+            <td>{{ vehiculo.precio | currency:'EUR' }}</td>
 
             <td>
               <span [class.estado-nuevo]="vehiculo.estado === 'nuevo'"
