@@ -12,6 +12,7 @@ export class AppComponent {
   mobileMenuOpen = false;
   isMobileView = false;
   footerVisible = false;
+  showScrollTop = false;
 
   constructor(
     private authService: AuthService,
@@ -26,6 +27,7 @@ export class AppComponent {
   @HostListener('window:scroll', ['$event'])
   onScroll() {
     this.checkFooterVisibility();
+    this.showScrollTop = window.scrollY > 300;
   }
 
   checkViewport() {
@@ -72,5 +74,9 @@ export class AppComponent {
     } else {
       this.router.navigate(['/login']);
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
