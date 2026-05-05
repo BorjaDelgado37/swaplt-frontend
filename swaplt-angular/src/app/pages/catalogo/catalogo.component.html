@@ -134,23 +134,14 @@
       </form>
     </div>
 
-    <!-- Estado de carga (Skeletons) -->
-    <div *ngIf="loading" class="vehiculos-grid">
-      <div *ngFor="let i of [1,2,3,4]" class="skeleton-card">
-        <div class="skeleton-img"></div>
-        <div class="skeleton-info">
-          <div class="skeleton-line title"></div>
-          <div class="skeleton-line price"></div>
-          <div style="margin-top: 20px;">
-            <div class="skeleton-line text"></div>
-            <div class="skeleton-line text" style="width: 70%"></div>
-          </div>
-          <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between;">
-             <div class="skeleton-line text" style="width: 25%"></div>
-             <div class="skeleton-line text" style="width: 35%"></div>
-          </div>
-        </div>
+    <!-- Estado de carga (Puntos Animados) -->
+    <div *ngIf="loading" class="custom-loader-container">
+      <div class="bouncing-dots">
+        <div class="dot color-primary"></div>
+        <div class="dot color-secondary"></div>
+        <div class="dot color-tertiary"></div>
       </div>
+      <p>Cargando vehículos...</p>
     </div>
 
     <!-- Estado de error -->
