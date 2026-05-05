@@ -597,8 +597,8 @@
 /* Scroll to Top Button */
 .scroll-to-top {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  right: 80px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -633,7 +633,7 @@
 @media (max-width: 768px) {
   .scroll-to-top {
     bottom: 20px;
-    right: 20px;
+    right: 75px;
     width: 45px;
     height: 45px;
     font-size: 1.2rem;
