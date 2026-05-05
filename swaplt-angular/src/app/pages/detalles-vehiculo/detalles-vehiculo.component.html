@@ -233,9 +233,14 @@
         <div class="seller-details">
           <h3>{{ vehiculo.propietario.nombre }}</h3>
           <p>ID de Usuario: 0000{{ vehiculo.propietario.id }}</p>
-          <button class="ver-perfil-btn" (click)="verPerfil()">
-            <i class="fas fa-user-circle"></i> Ver Perfil
-          </button>
+          <div class="seller-actions" style="display: flex; gap: 10px;">
+            <button class="ver-perfil-btn" (click)="verPerfil()">
+              <i class="fas fa-user-circle"></i> Ver Perfil
+            </button>
+            <button class="contactar-vendedor-btn" (click)="contactar()" style="background-color: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 25px; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease;">
+              <i class="fas fa-comment"></i> Contactar
+            </button>
+          </div>
         </div>
       </div>
     </div>
