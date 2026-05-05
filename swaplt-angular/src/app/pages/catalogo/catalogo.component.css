@@ -862,7 +862,7 @@ button:hover {
 /* Skeleton Loader */
 :root {
   --skeleton-base: #e0e0e0;
-  --skeleton-highlight: #f0f0f0;
+  --skeleton-highlight: #f8f9fa;
 }
 [data-theme="dark"] {
   --skeleton-base: #2a2a2a;
@@ -877,6 +877,7 @@ button:hover {
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .skeleton-img {
@@ -884,7 +885,7 @@ button:hover {
   min-width: 300px;
   height: 200px;
   background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-highlight) 50%, var(--skeleton-base) 75%);
-  background-size: 200% 100%;
+  background-size: 400% 100%;
   animation: shimmer 1.5s infinite linear;
 }
 
@@ -900,7 +901,7 @@ button:hover {
   height: 20px;
   border-radius: 4px;
   background: linear-gradient(90deg, var(--skeleton-base) 25%, var(--skeleton-highlight) 50%, var(--skeleton-base) 75%);
-  background-size: 200% 100%;
+  background-size: 400% 100%;
   animation: shimmer 1.5s infinite linear;
 }
 
@@ -909,8 +910,8 @@ button:hover {
 .skeleton-line.text { height: 15px; width: 100%; margin-top: 5px; }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }
 
 @media (max-width: 768px) {
