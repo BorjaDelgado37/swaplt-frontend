@@ -453,6 +453,12 @@ export class MensajesComponent implements OnInit, OnDestroy {
     this.router.navigate(['/mensajes']);
   }
 
+  verPerfilUsuario(): void {
+    if (this.usuarioSeleccionado) {
+      this.router.navigate(['/perfil-usuario', this.usuarioSeleccionado.id]);
+    }
+  }
+
   toggleOpcionesChat(): void {
     this.mostrarOpcionesChat = !this.mostrarOpcionesChat;
   }
@@ -460,19 +466,23 @@ export class MensajesComponent implements OnInit, OnDestroy {
   bloquearUsuarioActual(): void {
     if (!this.usuarioSeleccionado) return;
     
-    if (confirm(`¿Estás seguro de que quieres bloquear a ${this.usuarioSeleccionado.name}? No podrás enviarle ni recibir mensajes de este usuario.`)) {
-      this.userBlockService.bloquearUsuario(this.usuarioSeleccionado.id, 'Bloqueado desde chat').subscribe({
-        next: () => {
-          this.toastr.success(`Has bloqueado a ${this.usuarioSeleccionado!.name}`);
-          this.cargarBloqueos(); // Refresh block list
-          this.volverALista();
-        },
-        error: (error) => {
-          console.error('Error al bloquear usuario:', error);
-          this.toastr.error('Error al bloquear el usuario');
-        }
-      });
-    }
+    const confirmacion = confirm(`¿Estás seguro de que quieres bloquear a ${this.usuarioSeleccionado.name}? No podrás enviarle ni recibir mensajes de este usuario.`);
+    if (!confirmacion) return;
+
+    const razon = window.prompt(`Por favor, indica el motivo del bloqueo (Opcional):`);
+    if (razon === null) return; // Si el usuario cancela el prompt
+    
+    this.userBlockService.bloquearUsuario(this.usuarioSeleccionado.id, razon).subscribe({
+      next: () => {
+        this.toastr.success(`Has bloqueado a ${this.usuarioSeleccionado!.name}`);
+        this.cargarBloqueos(); // Refresh block list
+        this.volverALista();
+      },
+      error: (error) => {
+        console.error('Error al bloquear usuario:', error);
+        this.toastr.error('Error al bloquear el usuario');
+      }
+    });
   }
 
   mostrarMenuContextual(event: MouseEvent, mensaje: Mensaje): void {

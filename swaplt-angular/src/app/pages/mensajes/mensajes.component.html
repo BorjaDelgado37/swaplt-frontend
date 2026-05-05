@@ -57,6 +57,9 @@
           <i class="fas fa-ellipsis-v"></i>
         </button>
         <div class="dropdown-menu" [class.show]="mostrarOpcionesChat">
+          <button class="dropdown-item" (click)="verPerfilUsuario()">
+            <i class="fas fa-user-circle"></i> Ver perfil
+          </button>
           <button class="dropdown-item text-danger" (click)="bloquearUsuarioActual()">
             <i class="fas fa-ban"></i> Bloquear usuario
           </button>
