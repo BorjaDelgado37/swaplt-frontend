@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserBlockService } from 'src/app/services/usuarios/user-block.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from '../usuarios/service/users.service';
+import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-bloqueos',
@@ -21,6 +22,9 @@ export class BloqueosComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
+
+  @ViewChild('bloqueosChart') bloqueosChartRef!: ElementRef;
+  chart: any;
 
   constructor(
     private userBlockService: UserBlockService,
@@ -60,6 +64,9 @@ export class BloqueosComponent implements OnInit {
         }));
         this.totalItems = this.bloqueos.length;
         this.applyPagination();
+        
+        // Renderizar gráfica después de cargar los datos
+        setTimeout(() => this.renderChart(), 100);
       },
       error: () => { this.toastr.error('Error al cargar bloqueos'); }
     });
@@ -112,6 +119,51 @@ export class BloqueosComponent implements OnInit {
     this.userBlockService.verificarBloqueo(this.usuarioBloqueadoSeleccionado).subscribe({
       next: (res) => { this.resultadoVerificacion = res; },
       error: () => { this.toastr.error('Error al verificar bloqueo'); }
+    });
+  }
+
+  // Renderizar gráfica de bloqueos por mes
+  renderChart() {
+    if (!this.bloqueosChartRef) return;
+    
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const conteoMeses = new Array(12).fill(0);
+
+    this.bloqueos.forEach(b => {
+      if (b.created_at) {
+        const fecha = new Date(b.created_at);
+        const mes = fecha.getMonth();
+        conteoMeses[mes]++;
+      }
+    });
+
+    this.chart = new Chart(this.bloqueosChartRef.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: meses,
+        datasets: [{
+          label: 'Usuarios bloqueados por mes',
+          data: conteoMeses,
+          backgroundColor: '#dc3545',
+          borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        },
+        scales: {
+          y: { 
+            beginAtZero: true, 
+            ticks: { stepSize: 1 } 
+          }
+        }
+      }
     });
   }
 } 
